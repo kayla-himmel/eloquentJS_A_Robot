@@ -1,5 +1,7 @@
 // Global variables
 const arrayOf100 = [];
+const newIncrementArray = [];
+const newRandomArray = [];
 
 // Make an array of 100 "tasks" instead of creating one based on the book's initial array "roads"
 function makeArrayOf100() {
@@ -7,35 +9,56 @@ function makeArrayOf100() {
         let item = i;
         arrayOf100.push(item);
     }
+    return arrayOf100;
 };
 
 // Robot 1: The Random Picker one
 function randomPicker(array) {
-    let choice = Math.floor(Math.random() * array.length);
-    return array[choice];
+    for (let i = 0; i <= array.length; i++) {
+        let choice = Math.floor(Math.random() * array.length);
+
+        // logic to add each task at least once
+        if (i !== choice) {
+            newRandomArray.push(`task ${choice}`);
+        }
+    }
+    return newRandomArray;
 };
 
-// 
-const option1Array = []
+// Robot 2: The Incremented Picker one
+function incrementPicker(array) {
+    for (let i = 0; i < array.length; i++) {
+        let task = `task ${i}`;
+        newIncrementArray.push(task);
+    };
+    return newIncrementArray;
+};
 
-// compare the 2 robots (randomPicker and robot2)
+// compare the two robots to find difference in number of tasks
 function compareRobots(robot1, robot1Memory, robot2, robot2Memory) {
-    // create an empty array to hold the generated tasks
-    let tasks = [];
- 
+    // calc the length of robot's memories
+    robot1Memory = robot1Array.length;
+    robot2Memory = robot2Array.length;
+
+    // calc difference between the lengths of the robot's memories arrays
+    let taskDifference = robot1Memory - robot2Memory;
+
+    // console log the difference between the two robots
+    console.log(`The ${robot1} robot made ${taskDifference} more moves than ${robot2} robot to complete the same task.`)
 };
+
 
 // CALL FUNCTIONS
 // create and fill our global array of 100 "tasks"
 makeArrayOf100();
 
-// call the robots
-let robotRandom = randomPicker(arrayOf100);
-console.log(robotRandom);
-// call second robot
+// call the random robot
+let randomRobot = randomPicker(arrayOf100);
+console.log(randomRobot);
+
+// call incrementing robot
+let incrementRobot = incrementPicker(arrayOf100);
+console.log(incrementRobot);
 
 // compare the robots efficiency
-// compareRobots(robotRandom, robotRandomMem, robot2, robot2Mem) {
-//     // calc the # of steps taken to complete all tasks by the two robots
-
-// };
+compareRobots(randomRobot, newRandomArray.length, incrementRobot, newIncrementArray.length);
